@@ -6,5 +6,5 @@ class Note(Base):
     __tablename__= "notes"
 
     id = Column(Integer, primary_key=True, autoincrement=True, index=True)
-    name = Column(String, index=True, nullable=False)
+    name = Column(String, index=True, nullable=False, unique=True)
     scent_family = Column(String, index=True, nullable=False)
