@@ -13,9 +13,10 @@ DB_LINK = os.getenv("DB_LINK")
 if not DB_LINK:
     raise ValueError("DB_LINK environment variable is not set")
 
+#responsible for managing database data
 engine = create_engine(DB_LINK, echo=True)
 
-#Sessions
+#Sessions for API to access engine & thus database
 sessionLocal = sessionmaker(
     autoflush=False,
     bind=engine
@@ -28,5 +29,3 @@ def get_db():
         yield db
     finally:
         db.close()
-
-#I HAVE EDITED PYVENV.CFG ON LAPTOP, CHECK ON PC IF VENV & INTERPRETER STILL WORK
