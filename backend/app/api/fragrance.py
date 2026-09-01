@@ -5,10 +5,20 @@ app = FastAPI()
 class FragranceIn(BaseModel):
     name: str
     brand: str
+    top_notes: list[str]
+    middle_notes: list[str]
+    base_notes: list[str]
+    season_rec: str
+    timeofday_rec: str
 
 class FragranceOut(BaseModel):
     name: str
     brand: str
+    top_notes: list[str]
+    middle_notes: list[str]
+    base_notes: list[str]
+    season_rec: str
+    timeofday_rec: str
     frag_id: int
 
 @app.get("/")
@@ -19,7 +29,6 @@ def health_check():
 def new_fragrance(new_frag: FragranceIn):
     #return add_new_fragrance_to_database(new_frag)
     pass
-    
 
 @app.get("/fragrances/{frag_id}", response_model=FragranceOut)
 def get_fragrance(frag_id: int):

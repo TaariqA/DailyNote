@@ -3,7 +3,7 @@ from pydantic import BaseModel, EmailStr
 from app.api.fragrance import FragranceIn, FragranceOut
 app = FastAPI()
 
-class UserCreate(BaseModel):
+class UserIn(BaseModel):
     email: EmailStr
     name: str
     password_hash: str
@@ -25,17 +25,17 @@ def get_user(user_id: int):
     pass
     #return get_user_by_id(user_id)
 
-@app.post("/register", response_model=UserOut)
-def create_user(user: UserCreate):
+@app.post("/users", response_model=UserOut)
+def create_user(user: UserIn):
     pass
     #return add_new_user_to_db(user)
 
-@app.patch("/namechange/{user_id}", response_model=UserOut)
-def change_name(user_id: int, name_update: NameUpdate):
+@app.patch("/users/{user_id}", response_model=UserOut)
+def update_user_name(user_id: int, name_update: NameUpdate):
     pass
     #return change_username(user_id, NameUpdate)
 
-@app.delete("users/delete/{user_id}", response_model=UserOut)
+@app.delete("/users/delete/{user_id}")
 def delete_user(user_id: int):
     pass
     #return delete_user_by_id(user_id)
