@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from pydantic import BaseModel, EmailStr
+from app.api.fragrance import FragranceIn, FragranceOut
 app = FastAPI()
 
 class UserCreate(BaseModel):
@@ -33,3 +34,8 @@ def create_user(user: UserCreate):
 def change_name(user_id: int, name_update: NameUpdate):
     pass
     #return change_username(user_id, NameUpdate)
+
+@app.delete("users/delete/{user_id}", response_model=UserOut)
+def delete_user(user_id: int):
+    pass
+    #return delete_user_by_id(user_id)
