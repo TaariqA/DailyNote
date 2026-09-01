@@ -16,7 +16,7 @@ if not DB_LINK:
 #responsible for managing database data
 engine = create_engine(DB_LINK, echo=True)
 
-#Sessions for API to access engine & thus database
+#Sessions for API to access engine & thus database (flush adds data to database non-permanantly, commit saves to database)
 sessionLocal = sessionmaker(
     autoflush=False,
     bind=engine
