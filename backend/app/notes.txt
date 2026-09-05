@@ -1,0 +1,7 @@
+I think that AUTHENTICATION should be JWT based,
+but each instance of the application should be session based,
+Im not even sure if that makes sense! HAHA
+This is because for each session the application will grab the users'
+location, local weather, & time of day alongside the collection already
+saved to the user's account to send information to a LLM in
+in order to get accurate recommendations back!
