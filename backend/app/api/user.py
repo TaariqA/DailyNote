@@ -1,7 +1,12 @@
-from fastapi import FastAPI
+from fastapi import APIRouter, Depends
 from pydantic import BaseModel, EmailStr
-from app.api.fragrance import FragranceIn, FragranceOut
-app = FastAPI()
+from app.services.user_logic import get_user_by_id
+
+from sqlalchemy.orm import Session
+from app.db.session import get_db
+
+
+router = APIRouter()
 
 class UserIn(BaseModel):
     email: EmailStr
@@ -16,26 +21,25 @@ class UserOut(BaseModel):
 class NameUpdate(BaseModel):
     new_name: str
 
-@app.get("/")
+@router.get("/")
 def health_check():
     return {"User routes": "Healthy!"}
 
-@app.get("/users/{user_id}",response_model=UserOut)
-def get_user(user_id: int):
-    pass
-    #return get_user_by_id(user_id)
+@router.get("/users/{user_id}",response_model=UserOut)
+def get_user(user_id: int, db: Session = Depends(get_db)):
+    return get_user_by_id(user_id, db)
 
-@app.post("/users", response_model=UserOut)
-def create_user(user: UserIn):
+@router.post("/users", response_model=UserOut)
+def create_user(user: UserIn, db: Session = Depends(get_db)):
     pass
-    #return add_new_user_to_db(user)
+    #return add_new_user_to_db(user, db)
 
-@app.patch("/users/{user_id}", response_model=UserOut)
-def update_user_name(user_id: int, name_update: NameUpdate):
+@router.patch("/users/{user_id}", response_model=UserOut)
+def update_user_name(user_id: int, name_update: NameUpdate, db: Session = Depends(get_db)):
     pass
-    #return change_username(user_id, NameUpdate)
+    #return change_username(user_id, NameUpdate, db)
 
-@app.delete("/users/delete/{user_id}")
-def delete_user(user_id: int):
+@router.delete("/users/delete/{user_id}")
+def delete_user(user_id: int, db: Session = Depends(get_db)):
     pass
-    #return delete_user_by_id(user_id)
+    #return delete_user_by_id(user_id, db)

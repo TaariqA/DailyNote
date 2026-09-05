@@ -1,6 +1,10 @@
-from fastapi import FastAPI
+from fastapi import APIRouter, Depends
 from pydantic import BaseModel
-app = FastAPI()
+
+from sqlalchemy.orm import Session
+from app.db.session import get_db
+
+router = APIRouter()
 
 class FragranceIn(BaseModel):
     name: str
@@ -21,16 +25,16 @@ class FragranceOut(BaseModel):
     timeofday_rec: str
     frag_id: int
 
-@app.get("/")
+@router.get("/")
 def health_check():
     return {"Fragrance routes": "Healthy!"}
 
-@app.post("/fragrances", response_model=FragranceOut)
-def new_fragrance(new_frag: FragranceIn):
-    #return add_new_fragrance_to_database(new_frag)
+@router.post("/fragrances", response_model=FragranceOut)
+def new_fragrance(new_frag: FragranceIn, db: Session = Depends(get_db)):
+    #return add_new_fragrance_to_database(new_frag, db)
     pass
 
-@app.get("/fragrances/{frag_id}", response_model=FragranceOut)
-def get_fragrance(frag_id: int):
-    #return get_fragrance_by_id(frag_id)
+@router.get("/fragrances/{frag_id}", response_model=FragranceOut)
+def get_fragrance(frag_id: int, db: Session = Depends(get_db)):
+    #return get_fragrance_by_id(frag_id, db)
     pass
