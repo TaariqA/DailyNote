@@ -10,9 +10,9 @@ def get_user_by_id(user_id:int, db: Session):
     if not user:
             raise HTTPException(status_code=404, detail="User Not Found")
     
-    return {"email": user.id, 
-            "name": user.email,
-            "user_id": user.name
+    return {"email": user.email, 
+            "name": user.name,
+            "user_id": user.id
     }
 
 def add_new_user_to_db(user: UserIn, db: Session):
