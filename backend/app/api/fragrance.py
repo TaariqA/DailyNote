@@ -1,29 +1,10 @@
 from fastapi import APIRouter, Depends
-from pydantic import BaseModel
+from app.schemas.fragrance import FragranceIn, FragranceOut
 
 from sqlalchemy.orm import Session
 from app.db.session import get_db
 
 router = APIRouter()
-
-class FragranceIn(BaseModel):
-    name: str
-    brand: str
-    top_notes: list[str]
-    middle_notes: list[str]
-    base_notes: list[str]
-    season_rec: str
-    timeofday_rec: str
-
-class FragranceOut(BaseModel):
-    name: str
-    brand: str
-    top_notes: list[str]
-    middle_notes: list[str]
-    base_notes: list[str]
-    season_rec: str
-    timeofday_rec: str
-    frag_id: int
 
 @router.get("/")
 def health_check():

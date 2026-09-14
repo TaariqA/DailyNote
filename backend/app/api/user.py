@@ -1,25 +1,12 @@
 from fastapi import APIRouter, Depends
-from pydantic import BaseModel, EmailStr
-from app.services.user_logic import get_user_by_id
+from app.services.user_logic import get_user_by_id, change_username
+from app.schemas.user import 
 
 from sqlalchemy.orm import Session
 from app.db.session import get_db
 
 
 router = APIRouter()
-
-class UserIn(BaseModel):
-    email: EmailStr
-    name: str
-    password_hash: str
-
-class UserOut(BaseModel):
-    email: EmailStr
-    name: str
-    user_id: int
-
-class NameUpdate(BaseModel):
-    new_name: str
 
 @router.get("/")
 def health_check():
@@ -37,7 +24,7 @@ def create_user(user: UserIn, db: Session = Depends(get_db)):
 @router.patch("/users/{user_id}", response_model=UserOut)
 def update_user_name(user_id: int, name_update: NameUpdate, db: Session = Depends(get_db)):
     pass
-    #return change_username(user_id, NameUpdate, db)
+    return change_username(user_id, name_update, db)
 
 @router.delete("/users/delete/{user_id}")
 def delete_user(user_id: int, db: Session = Depends(get_db)):
