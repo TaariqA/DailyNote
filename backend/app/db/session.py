@@ -1,13 +1,10 @@
 #MODULES TO CREATE ENGINE THAT CONNECTS TO DATABASE & CREATE A SESSION FOR ROUTES TO ACCESS
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, Session
-#MODULES TO ACCESS SECRETS IN .ENV
-from dotenv import load_dotenv
-import os
+from app.core.config import settings
 
 #assigning .env secret to a variable
-load_dotenv()
-DB_LINK = os.getenv("DB_LINK")
+DB_LINK = settings.database_url
 
 #error catching just in case DB_LINK doesnt exist
 if not DB_LINK:
