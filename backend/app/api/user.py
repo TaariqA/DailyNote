@@ -1,9 +1,9 @@
 from fastapi import APIRouter, Depends
-from app.services.user_logic import get_user_by_id, change_username
-from app.schemas.user import UserIn, UserOut, NameUpdate
+from backend.app.services.user_logic import get_user_by_id, change_username
+from backend.app.schemas.user import UserIn, UserOut, NameUpdate
 
 from sqlalchemy.orm import Session
-from app.db.session import get_db
+from backend.app.db.session import get_db
 
 
 router = APIRouter()

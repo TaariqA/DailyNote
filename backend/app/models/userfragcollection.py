@@ -1,5 +1,5 @@
 from sqlalchemy import Column, Integer, String, ForeignKey
-from app.db.base import Base
+from backend.app.db.base import Base
 
 class UserFragJoin(Base):
     __tablename__ = "user_frag_join"

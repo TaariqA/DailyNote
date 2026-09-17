@@ -1,7 +1,7 @@
-from app.models.user import User
+from backend.app.models.user import User
 from sqlalchemy.orm import Session
 from sqlalchemy import update
-from app.api.user import UserIn, NameUpdate
+from backend.app.api.user import UserIn, NameUpdate
 from fastapi import HTTPException
 
 def get_user_by_id(user_id:int, db: Session):

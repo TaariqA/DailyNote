@@ -1,8 +1,8 @@
 from fastapi import APIRouter, Depends
-from app.schemas.fragrance import FragranceIn, FragranceOut
+from backend.app.schemas.fragrance import FragranceIn, FragranceOut
 
 from sqlalchemy.orm import Session
-from app.db.session import get_db
+from backend.app.db.session import get_db
 
 router = APIRouter()
 
