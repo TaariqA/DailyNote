@@ -1,5 +1,5 @@
 from sqlalchemy import Column, Integer, String
-from app.db.base import Base
+from backend.app.db.base import Base
 
 #Model for the user table, contains id, email, password
 class User(Base):
