@@ -22,7 +22,7 @@ def add_new_user_to_db(user: UserIn, db: Session):
     new_user = User(
                     email = user.email,
                     name = user.name,
-                    password_hash = hash_user_password(user.password_hash)
+                    password = hash_user_password(user.password)
                     )
     db.add(new_user)
     db.commit()
