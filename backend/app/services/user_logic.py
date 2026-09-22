@@ -1,8 +1,9 @@
 from backend.app.models.user import User
 from sqlalchemy.orm import Session
 from sqlalchemy import update
-from backend.app.api.user import UserIn, NameUpdate
+from backend.app.schemas.user import UserIn, NameUpdate
 from fastapi import HTTPException
+from backend.app.core.security import hash_user_password
 
 def get_user_by_id(user_id:int, db: Session):
     user = db.query(User).filter(User.id == user_id).first()
@@ -21,7 +22,7 @@ def add_new_user_to_db(user: UserIn, db: Session):
     new_user = User(
                     email = user.email,
                     name = user.name,
-                    password_hash = ""#hashed password
+                    password_hash = hash_user_password(user.password_hash)
                     )
     db.add(new_user)
     db.commit()

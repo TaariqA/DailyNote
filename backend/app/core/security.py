@@ -8,16 +8,16 @@ optional role/permission checks'''
 import bcrypt
 
 #hashes user pw when account is made
-def password_hash(password: str):
-    passwordInBytes = password.encode('utf-8')
+def hash_user_password(password: str):
+    password_in_bytes = password.encode('utf-8')
     salt = bcrypt.gensalt()
 
-    hash = bcrypt.hashpw(passwordInBytes, salt)
+    hash = bcrypt.hashpw(password_in_bytes, salt)
 
     return hash
 
-def password_authenticate(enteredPw: str, userPwHash: bytes):
-    enteredPwBytes = enteredPw.encode('utf-8')
-    result = bcrypt.checkpw(enteredPwBytes, userPwHash)
+def password_authenticate(entered_pw: str, user_pw_hash: bytes):
+    entered_pw_bytes = entered_pw.encode('utf-8')
+    result = bcrypt.checkpw(entered_pw_bytes, user_pw_hash)
 
     return result

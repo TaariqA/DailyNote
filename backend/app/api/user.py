@@ -1,11 +1,6 @@
 from fastapi import APIRouter, Depends
-<<<<<<< HEAD
-from app.services.user_logic import get_user_by_id, change_username
-from app.schemas.user import UserIn, UserOut, NameUpdate
-=======
-from backend.app.services.user_logic import get_user_by_id, change_username
+from backend.app.services.user_logic import get_user_by_id, change_username, add_new_user_to_db
 from backend.app.schemas.user import UserIn, UserOut, NameUpdate
->>>>>>> features
 
 from sqlalchemy.orm import Session
 from backend.app.db.session import get_db
@@ -23,8 +18,7 @@ def get_user(user_id: int, db: Session = Depends(get_db)):
 
 @router.post("/users", response_model=UserOut)
 def create_user(user: UserIn, db: Session = Depends(get_db)):
-    pass
-    #return add_new_user_to_db(user, db)
+    return add_new_user_to_db(user, db)
 
 @router.patch("/users/{user_id}", response_model=UserOut)
 def update_user_name(user_id: int, name_update: NameUpdate, db: Session = Depends(get_db)):
