@@ -21,7 +21,8 @@ def get_user_by_email(user_email:str, db: Session):
         return
     return {"email": user.email,
             "name": user.name,
-            "id": user.id}
+            "password": user.password_hash
+            }
     
 
 def add_new_user_to_db(user: UserIn, db: Session):
