@@ -14,6 +14,16 @@ def get_user_by_id(user_id:int, db: Session):
             "id": user.name
             }
 
+def get_user_by_email(user_email:str, db: Session):
+    user = db.query(User).filter(User.email == user_email).first()
+
+    if not user:
+        return
+    return {"email": user.email,
+            "name": user.name,
+            "id": user.id}
+    
+
 def add_new_user_to_db(user: UserIn, db: Session):
     #work on function to hash user password
 
