@@ -9,6 +9,7 @@ class Settings(BaseSettings):
 
     database_url:str = Field(..., alias="DB_LINK")
     secret_key:str = Field(..., alias="JWT_SECRET_KEY")
+    third_party_perfume_key:str = Field(..., alias="FRAGRANTYAI_KEY")
     jwt_algorithm = "HS256"
     access_token_expire_minutes = 30
 
