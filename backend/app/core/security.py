@@ -8,10 +8,12 @@ optional role/permission checks'''
 import bcrypt
 from datetime import datetime, timedelta, timezone
 from jose import jwt, JWTError
-from app.core.config import settings
+from backend.app.core.config import settings
+from backend.app.services.user_logic import get_user_by_email
+from sqlalchemy.orm import Session
 
 #hashes user pw when account is made
-def hash_user_password(password: str):
+def password_hash(password: str):
     password_in_bytes = password.encode('utf-8')
     salt = bcrypt.gensalt()
 
@@ -19,9 +21,9 @@ def hash_user_password(password: str):
 
     return hash
 
-def password_authenticate(entered_pw: str, user_pw_hash: bytes):
-    entered_pw_bytes = entered_pw.encode('utf-8')
-    result = bcrypt.checkpw(entered_pw_bytes, user_pw_hash)
+def password_authenticate(enteredPw: str, userPwHash: bytes):
+    entered_pw_bytes = enteredPw.encode('utf-8')
+    result = bcrypt.checkpw(entered_pw_bytes, userPwHash)
 
     return result
 
@@ -31,6 +33,6 @@ def create_access_token(data: dict, expires_minutes: int = settings.access_token
     to_encode.update({"exp": expire})
     return jwt.encode(to_encode, settings.secret_key, algorithm= settings.jwt_algorithm)
 
-def authenticate_user(username: str, password: str):
-    pass
-    #finish soon, 
+def authenticate_user(username: str, password: str, db: Session):
+    user = get_user_by_email(username, db)
+    #check if user account exists and authenticate password
