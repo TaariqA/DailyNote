@@ -3,8 +3,8 @@ from pydantic import Field
 
 
 class Settings(BaseSettings):
-    app_name = "DailyNote"
-    environment = "development"
+    app_name: str = "DailyNote"
+    environment: str = "development"
     debug: bool = True
 
     database_url:str = Field(..., alias="DB_LINK")

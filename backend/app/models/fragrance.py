@@ -1,5 +1,5 @@
 from sqlalchemy import Column, Integer, String, JSON
-from app.db.base import Base
+from backend.app.db.base import Base
 
 #model for fragrances, each requires an id, name, & brand
 class Fragrance(Base):

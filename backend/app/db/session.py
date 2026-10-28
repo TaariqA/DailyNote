@@ -1,7 +1,7 @@
 #MODULES TO CREATE ENGINE THAT CONNECTS TO DATABASE & CREATE A SESSION FOR ROUTES TO ACCESS
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, Session
-from app.core.config import settings
+from backend.app.core.config import settings
 
 #assigning .env secret to a variable
 DB_LINK = settings.database_url
