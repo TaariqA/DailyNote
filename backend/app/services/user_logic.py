@@ -3,7 +3,7 @@ from sqlalchemy.orm import Session
 from sqlalchemy import update
 from backend.app.schemas.user import UserIn, NameUpdate
 from fastapi import HTTPException
-from app.core.security import password_hash
+from backend.app.core.security import password_hash
 
 def get_user_by_id(user_id:int, db: Session):
     user = db.query(User).filter(User.id == user_id).first()
