@@ -21,9 +21,9 @@ def password_hash(password: str):
 
     return hash
 
-def password_authenticate(enteredPw: str, userPwHash: bytes):
-    entered_pw_bytes = enteredPw.encode('utf-8')
-    result = bcrypt.checkpw(entered_pw_bytes, userPwHash)
+def password_authenticate(entered_pw: str, user_pw_hash: bytes):
+    entered_pw_bytes = entered_pw.encode('utf-8')
+    result = bcrypt.checkpw(entered_pw_bytes, user_pw_hash)
 
     return result
 
