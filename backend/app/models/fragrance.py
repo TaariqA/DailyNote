@@ -7,10 +7,10 @@ class Fragrance(Base):
     __tablename__ = "fragrances"
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True, index=True, autoincrement=True)
-    name: Mapped[str] = mapped_column(String, index=True, nullable=False)
-    brand: Mapped[str] = mapped_column(String, index=True, nullable=False)
-    top_notes: Mapped[JSON] = mapped_column(JSON, nullable = True)
-    middle_notes: Mapped[JSON] = mapped_column(JSON, nullable = True)
-    base_notes: Mapped[JSON] = mapped_column(JSON, nullable = True)
-    season_rec: Mapped[str] = mapped_column(String, nullable= True)
-    timeofday_rec: Mapped[str] = mapped_column(String, nullable= True)
+    name: Mapped[str] = mapped_column(String, index=True, nullable= False)
+    brand: Mapped[str] = mapped_column(String, index=True, nullable= False)
+    top_notes: Mapped[JSON] = mapped_column(JSON, nullable = False)
+    middle_notes: Mapped[JSON] = mapped_column(JSON, nullable = False)
+    base_notes: Mapped[JSON] = mapped_column(JSON, nullable = False)
+    season_rec: Mapped[str] = mapped_column(String, nullable= False)
+    timeofday_rec: Mapped[str] = mapped_column(String, nullable= False)
