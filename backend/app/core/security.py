@@ -35,4 +35,6 @@ def create_access_token(data: dict, expires_minutes: int = settings.access_token
 
 def authenticate_user(username: str, password: str, db: Session):
     user = get_user_by_email(username, db)
-    #check if user account exists and authenticate password
+
+    if not password_authenticate(password, user.password_hash):
+        return None

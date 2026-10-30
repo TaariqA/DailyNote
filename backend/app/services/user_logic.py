@@ -1,34 +1,28 @@
 from backend.app.models.user import User
 from sqlalchemy.orm import Session
-from sqlalchemy import update
+from sqlalchemy import update, select
 from backend.app.schemas.user import UserIn, NameUpdate
 from fastapi import HTTPException
 from backend.app.core.security import password_hash
 
-def get_user_by_id(user_id:int, db: Session):
-    user = db.query(User).filter(User.id == user_id).first()
+def get_user_by_id(user_id:int, db: Session) -> User:
+    user = db.get(User, user_id)
 
     if not user:
             raise HTTPException(status_code=404, detail="User Not Found")
     
-    return {"email": user.email, 
-            "name": user.name,
-            "user_id": user.id
-    }
+    return user
 
-def get_user_by_email(user_email:str, db: Session):
-    user = db.query(User).filter(User.email == user_email).first()
+def get_user_by_email(email:str, db: Session, ) -> User:
+    user = db.scalar(select(User).where(User.email == email))
 
     if not user:
-        return
-    return {"email": user.email,
-            "name": user.name,
-            "password": user.password_hash
-            }
-    ##### TESTING RETURNING 
+        raise HTTPException(status_code=404, detail="User Not Found")
+    
+    return user 
     
 
-def add_new_user_to_db(user: UserIn, db: Session):
+def add_new_user_to_db(user: UserIn, db: Session) -> User:
     #work on function to hash user password
 
     new_user = User(
@@ -39,27 +33,20 @@ def add_new_user_to_db(user: UserIn, db: Session):
     db.add(new_user)
     db.commit()
     db.refresh(new_user)
-    return {"email": new_user.email, 
-            "name": new_user.name,
-            "user_id": new_user.id
-    }
+    
+    return db.get(User, new_user.id)
 
 def change_username(user_id: int, name_update: NameUpdate, db: Session):
-    user = db.query(User).filter(User.id == user_id).first()
+    user = db.get(User, user_id)
 
     if not user:
            raise HTTPException(status_code=404, detail="User not found")
 
-    edit = update(User).where(User.id == user_id).values(name = name_update.new_name)
-    db.execute(edit)
-    db.commit()
+    user.name = name_update.new_name
+    db.commit
     db.refresh(user)
 
-    return {
-           "email": user.email,
-           "name": user.name,
-           "user_id": user.id
-    }
+    return user
 
 
     
