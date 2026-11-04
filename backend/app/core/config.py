@@ -9,9 +9,9 @@ class Settings(BaseSettings):
 
     database_url:str = Field(..., alias="DB_LINK")
     secret_key:str = Field(..., alias="JWT_SECRET_KEY")
-    jwt_algorithm: str = Field(..., alias="JWT_ALGORITHM")
-    #CREATE THE .ENV FILE
-    access_token_expire_minutes: int = 30
+    third_party_perfume_key:str = Field(..., alias="FRAGRANTYAI_KEY")
+    jwt_algorithm = "HS256"
+    access_token_expire_minutes = 30
 
     model_config = SettingsConfigDict(
         env_file=".env",
