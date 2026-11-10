@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends
 from backend.app.services.user_logic import get_user_by_id, change_username, add_new_user_to_db
 from backend.app.schemas.user import UserIn, UserOut, NameUpdate, LoginRequest
-from backend.app.core.security import authenticate_user, LoginRequest
+from backend.app.core.security import authenticate_user
 
 from sqlalchemy.orm import Session
 from backend.app.db.session import get_db
