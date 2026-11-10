@@ -47,7 +47,3 @@ def change_username(user_id: int, name_update: NameUpdate, db: Session):
     db.refresh(user)
 
     return user
-
-
-    
-

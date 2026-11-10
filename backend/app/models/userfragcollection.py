@@ -1,11 +1,12 @@
-from sqlalchemy import Column, Integer, String, ForeignKey
+from sqlalchemy import Column, Integer, String, LargeBinary
 from backend.app.db.base import Base
 from sqlalchemy.orm import Mapped, mapped_column
 
+#Model for the user table, contains id, email, password
+class User(Base):
+    __tablename__ = "users"
 
-class UserFragJoin(Base):
-    __tablename__ = "user_frag_join"
-
-    link_id: Mapped[int] = mapped_column(Integer, autoincrement= True, primary_key= True)
-    user_id: Mapped[int] = mapped_column(Integer, ForeignKey("users.id"), nullable=False, index= True)
-    frag_id: Mapped[int] = mapped_column(Integer, ForeignKey("fragrances.id"), nullable=False)
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, index=True, autoincrement=True)
+    email: Mapped[str] = mapped_column(String, unique=True, index=True, nullable=False)
+    name: Mapped[str] = mapped_column(String, nullable=False)
+    password_hash: Mapped[bytes] = mapped_column(LargeBinary, nullable=False)

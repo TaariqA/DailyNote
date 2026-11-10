@@ -1,6 +1,7 @@
 from fastapi import APIRouter, Depends
 from backend.app.services.user_logic import get_user_by_id, change_username, add_new_user_to_db
-from backend.app.schemas.user import UserIn, UserOut, NameUpdate
+from backend.app.schemas.user import UserIn, UserOut, NameUpdate, LoginRequest
+from backend.app.core.security import authenticate_user
 
 from sqlalchemy.orm import Session
 from backend.app.db.session import get_db
@@ -15,6 +16,15 @@ def health_check():
 @router.get("/users/{user_id}",response_model=UserOut)
 def get_user(user_id: int, db: Session = Depends(get_db)):
     return get_user_by_id(user_id, db)
+
+@router.post("/users/login/", response_model=UserOut)
+#create LoginRequest Schema, type credentials as a LoginRequest object
+def login(credentials: LoginRequest, db: Session = Depends(get_db)):
+    user = authenticate_user(credentials.email, credentials.password, db)
+    if user is None:
+        pass
+        #fill this with error detection & HTTPException
+    return user
 
 @router.post("/users", response_model=UserOut)
 def create_user(user: UserIn, db: Session = Depends(get_db)):

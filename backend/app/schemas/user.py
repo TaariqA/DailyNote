@@ -14,3 +14,7 @@ class UserOut(BaseModel):
 
 class NameUpdate(BaseModel):
     new_name: str
+
+class LoginRequest(BaseModel):
+    email: EmailStr
+    password: str

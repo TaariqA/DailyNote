@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Depends
-from backend.app.schemas.fragrance import FragranceIn, FragranceOut
+from backend.app.schemas.fragrance import Fragrance
 
 from sqlalchemy.orm import Session
 from backend.app.db.session import get_db
@@ -10,12 +10,12 @@ router = APIRouter()
 def health_check():
     return {"Fragrance routes": "Healthy!"}
 
-@router.post("/fragrances", response_model=FragranceOut)
-def new_fragrance(new_frag: FragranceIn, db: Session = Depends(get_db)):
+@router.post("/fragrances", response_model=Fragrance)
+def new_fragrance(new_frag: Fragrance, db: Session = Depends(get_db)):
     #return add_new_fragrance_to_database(new_frag, db)
     pass
 
-@router.get("/fragrances/{frag_id}", response_model=FragranceOut)
+@router.get("/fragrances/{frag_id}", response_model=Fragrance)
 def get_fragrance(frag_id: int, db: Session = Depends(get_db)):
     #return get_fragrance_by_id(frag_id, db)
     pass
