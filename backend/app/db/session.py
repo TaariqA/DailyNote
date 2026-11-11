@@ -2,6 +2,7 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, Session
 from backend.app.core.config import settings
+from backend.app.db.base import Base
 
 #assigning .env secret to a variable
 DB_LINK = settings.database_url
@@ -26,3 +27,6 @@ def get_db():
         yield db
     finally:
         db.close()
+
+def init_db():
+    Base.metadata.create_all(bind = engine)

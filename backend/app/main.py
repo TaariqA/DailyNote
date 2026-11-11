@@ -8,3 +8,4 @@ app = FastAPI()
 app.include_router(fragrance_router)
 app.include_router(user_router)
 app.include_router(userfragcollection_router)
+
