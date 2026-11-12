@@ -23,7 +23,7 @@ async def login(credentials: LoginRequest, db: Session = Depends(get_db)):
     user = authenticate_user(credentials.email, credentials.password, db)
     if not user:
         raise HTTPException(status_code=401, detail="Invalid credentials")
-    access_token = create_access_token({"sub": user.id})
+    access_token = create_access_token({"sub": str(user.id)})
     return {"access_token": access_token, "token_type": "bearer"}
 
 @router.post("/register", status_code=201, summary="Create a new user")

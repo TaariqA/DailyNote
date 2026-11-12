@@ -9,7 +9,7 @@ def get_user_by_id(user_id:int, db: Session) -> User:
     user = db.get(User, user_id)
 
     if not user:
-            raise HTTPException(status_code=404, detail="User Not Found")
+            raise HTTPException(status_code=401, detail="User Not Found")
     
     return user
 
@@ -17,7 +17,7 @@ def get_user_by_email(email:str, db: Session, ) -> User:
     user = db.scalar(select(User).where(User.email == email))
 
     if not user:
-        raise HTTPException(status_code=404, detail="User Not Found")
+        raise HTTPException(status_code=401, detail="User Not Found")
     
     return user 
     
