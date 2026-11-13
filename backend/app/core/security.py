@@ -11,6 +11,7 @@ from jose import jwt, JWTError
 from backend.app.core.config import settings
 from backend.app.services.user_logic import get_user_by_email,get_user_by_id
 from backend.app.schemas.user import UserOut
+from backend.app.db.session import get_db
 from sqlalchemy.orm import Session
 
 from typing import Optional
@@ -45,7 +46,7 @@ def authenticate_user(email: str, password: str, db: Session):
         return None
     return user
 
-async def get_current_user(db: Session, token: str = Depends(settings.oauth2_scheme)) -> UserOut:
+async def get_current_user(token: str = Depends(settings.oauth2_scheme), db = Depends(get_db)) -> UserOut:
     cred_exec = HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
         detail="Could not validate credentials",
