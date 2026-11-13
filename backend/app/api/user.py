@@ -18,7 +18,6 @@ def get_user(user_id: int, db: Session = Depends(get_db)):
     return get_user_by_id(user_id, db)
 
 @router.post("/login", response_model=Token)
-#create LoginRequest Schema, type credentials as a LoginRequest object
 async def login(credentials: LoginRequest, db: Session = Depends(get_db)):
     user = authenticate_user(credentials.email, credentials.password, db)
     if not user:
