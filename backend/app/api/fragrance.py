@@ -10,11 +10,13 @@ router = APIRouter()
 def health_check():
     return {"Fragrance routes": "Healthy!"}
 
+#NEEDS PROTECTION (EVENTUALLY ONLY WANT ADMINS(me) TO HAVE THIS CAPABILITY)
 @router.post("/fragrances", response_model=Fragrance)
 def new_fragrance(new_frag: Fragrance, db: Session = Depends(get_db)):
     #return add_new_fragrance_to_database(new_frag, db)
     pass
 
+#NEEDS PROTECTION (ANY USER CAN DO THIS, JUST NEEDS TO BE LOGGED IN)
 @router.get("/fragrances/{frag_id}", response_model=Fragrance)
 def get_fragrance(frag_id: int, db: Session = Depends(get_db)):
     #return get_fragrance_by_id(frag_id, db)
