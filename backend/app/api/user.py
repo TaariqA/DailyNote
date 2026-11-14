@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException
 from backend.app.services.user_logic import get_user_by_id, change_username, add_new_user_to_db
 from backend.app.schemas.user import UserIn, UserOut, NameUpdate, LoginRequest, Token
-from backend.app.core.security import authenticate_user, create_access_token
+from backend.app.core.security import authenticate_user, create_access_token, get_current_user
 
 from sqlalchemy.orm import Session
 from backend.app.db.session import get_db
@@ -26,10 +26,10 @@ async def login(credentials: LoginRequest, db: Session = Depends(get_db)):
     access_token = create_access_token({"sub": str(user.id)})
     return {"access_token": access_token, "token_type": "bearer"}
 
-#NEEDS PROTECTION (YOU CAN ONLY GET ID ATTATCHED TO YOUR TOKEN)
-@router.get("/users/{user_id}",response_model=UserOut)
-def get_user(user_id: int, db: Session = Depends(get_db)):
-    return get_user_by_id(user_id, db)
+#[DONE]NEEDS PROTECTION (YOU CAN ONLY GET ID ATTATCHED TO YOUR TOKEN)
+@router.get("/users/me",response_model=UserOut)
+def get_user(user: UserOut = Depends(get_current_user)):
+    return user
 
 #NEEDS PROTECTION (CAN ONLY CHANGE NAME ATTATCHED TO YOUR TOKEN)
 @router.patch("/users/{user_id}", response_model=UserOut)
